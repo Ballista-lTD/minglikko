@@ -70,6 +70,11 @@ def get_client_ip(request):
     return ip
 
 
+def index(request):
+    context1 = {}
+    return render(request, template_name='index.html', context=context1)
+
+
 @ensure_csrf_cookie
 def signin(request):
     context1 = {}
