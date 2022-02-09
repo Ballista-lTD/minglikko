@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -9,9 +10,20 @@ from django.contrib.auth.models import User
 
 class Tokens(models.Model):
     user = models.OneToOneField(User, related_name='tokens', on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=12, default="")
+    intelligence = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    strength = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    individual_freedom = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    charisma = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    wealth = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    will_help_poor = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    religiousity = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    liberal = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
 
-    # profile = models.ImageField(upload_to='meadia',blank=True,null=True)
+    def total(self):
+        return sum(
+            [self.religiousity, self.liberal, self.will_help_poor, self.wealth,
+             self.individual_freedom, self.charisma,
+             self.strength, self.individual_freedom])
 
     def __str__(self):
         return f"{self.user} "
