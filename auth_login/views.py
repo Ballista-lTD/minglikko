@@ -77,6 +77,8 @@ def index(request):
 
 @ensure_csrf_cookie
 def signin(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/home')
     context1 = {}
     pprint(request.META['QUERY_STRING'])
     if request.method == "POST":
@@ -99,53 +101,6 @@ def signin(request):
     context1['google_redirect_uri'] = settings.DEPLOYMENT_URL + '/google-login'
 
     return render(request, template_name='login.html', context=context1)
-
-
-@ensure_csrf_cookie
-def signup(request):
-    context1 = {}
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        passwrd2 = request.POST.get("password retype")
-        username = request.POST.get("username", '')
-        logger.info(f"{email = } {password = } {passwrd2} {username = }")
-        if not email:
-            context1['pswderr'] = 'Email cannot be empty'
-            logger.info('Email was empty')
-        elif not password or not passwrd2:
-            context1['pswderr'] = 'Password cannot be empty'
-            logger.info('Password was empty')
-        elif not username:
-            context1['pswderr'] = 'Username cannot be empty'
-            logger.info('Username was empty')
-        else:
-            if passwrd2 == password:
-                try:
-                    logger.info("everything is okey creating user ")
-                    user = User.objects.create_user(email=email, password=password, username=username,
-                                                    first_name=username)
-                    logger.info(f"created user {user.username} ")
-                    token, _ = Tokens.objects.get_or_create(user=user)
-                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                    redirect_location = request.GET.get('next', '/') + '?' + request.META['QUERY_STRING']
-                    return HttpResponseRedirect(redirect_location)
-
-                except IntegrityError as e:
-                    logger.error(e)
-                    logger.info('User already exist')
-                    context1['pswderr'] = 'User already exists'
-
-            else:
-                logger.info('Password Does not match')
-                context1['pswderr'] = 'Password Does not match'
-
-    next_loc = request.GET.get('next', '')
-    context1['sign_text'] = "Register"
-    # context1['invite'] = get_item_from_url(next_loc, 'invite')
-    context1['redirect_uri'] = settings.DEPLOYMENT_URL + '/google-login'
-    context1['GOOGLE_CLIENT_ID'] = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-    return render(request, template_name="signup.html", context=context1)
 
 
 @login_required

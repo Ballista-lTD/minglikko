@@ -1,59 +1,90 @@
-
-{% extends 'root.html' %}
-{% load static %}
+{% extends "base.html" %}
 {% block title %}
-    Sign In
+    Register
 {% endblock %}
+{% block body %}
+    <main id="main">
+        <section id="contact" class="contact ">
+            <div class="container">
 
-{% block form %}
-
-<div  style="height: 100%" class="col-md-4 pt-5">
-
-
-      <div style="color:#696F79" class="row d-flex align-items-center ">
-          <figure style="color: #000000" class="text-center"><h1 class="fw-bold">Login</h1>
-            </figure>
-        <form action="/login/?{{ request.META.QUERY_STRING }}"
-              method="POST">
-            {% csrf_token %}
-            {% if pswderr %}
-                <div class=" text-danger text-center" role="alert">
-                    <i class="fa fa-exclamation-circle"></i> {{ pswderr }}
+                <div class="section-title">
+                    <h2>Contact Us</h2>
                 </div>
-            {% endif %}
-            <div class="input-fields " >
 
-                <div class=" mb-4 d-flex flex-column  align-items-center ">
-                <div class="mb-4 d-flex flex-column " style="width:350px;margin-right: auto;margin-left: auto ">
-                    <label  class="form-label input-label " for="email" >Email or username * </label>
-                     <input name="email" type="text" id="email" placeholder="Enter email or username" class="form-control  form-control-lg text-input mb-4" required  style=" height:70px"/>
-                    <label class="form-label input-label " for="password"  >Password*</label>
-                    <div class="password-container">
-                    <input  type="password" name="password" id="password" placeholder="Enter password" class="form-control form-control-lg text-input password-input"  style=" height:70px " required />
-                    <span onclick="show_password('password','password-visibility')" class="visibility" id="password-visibility">show</span>
+                <div class="row justify-content-center ">
+
+                    <div class="col-lg-10">
+
+                        <div class="info-wrap">
+                            <div class="row">
+                                <div class="col-lg-4 info">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <h4>Location:</h4>
+                                    <p>A108 Adam Street<br>New York, NY 535022</p>
+                                </div>
+
+                                <div class="col-lg-4 info mt-4 mt-lg-0">
+                                    <i class="bi bi-envelope"></i>
+                                    <h4>Email:</h4>
+                                    <p>info@example.com<br>contact@example.com</p>
+                                </div>
+
+                                <div class="col-lg-4 info mt-4 mt-lg-0">
+                                    <i class="bi bi-phone"></i>
+                                    <h4>Call:</h4>
+                                    <p>+1 5589 55488 51<br>+1 5589 22475 14</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input type="text" name="name" class="form-control" id="name"
+                                           placeholder="Your Name"
+                                           required>
+                                </div>
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="email" class="form-control" name="email" id="email"
+                                           placeholder="Your Email" required>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="text" class="form-control" name="subject" id="subject"
+                                       placeholder="Subject"
+                                       required>
+                            </div>
+                            <div class="form-group mt-3">
+                            <textarea class="form-control" name="message" rows="5" placeholder="Message"
+                                      required></textarea>
+                            </div>
+                            <div class="my-3">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Your message has been sent. Thank you!</div>
+                            </div>
+                            <div class="text-center bg-danger">
+                                <a style="text-transform: none" class="btn btn-lg btn-block text-input"
+                                   href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=code&state={{ request.META.QUERY_STRING|urlencode }}&redirect_uri={{ google_redirect_uri }}&client_id={{ GOOGLE_CLIENT_ID }}"
+                                   role="button">
+                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                                    login with Google
+                                </a>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-lg btn-block submit-btn" >Login Account</button>
+
                 </div>
 
-          <div class="divider d-flex justify-content-center align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-          </div>
-           <div style="color: #000000;" class="d-flex justify-content-center">
-          <a style="text-transform: none" class="btn btn-lg btn-block text-input"  href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=code&state={{ request.META.QUERY_STRING|urlencode }}&redirect_uri={{ google_redirect_uri }}&client_id={{ GOOGLE_CLIENT_ID }}" role="button">
-            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
-                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/> login with Google
-          </a>
-
-           </div>
-                <div class=" text-center ">
-                 <p  class="new-to"><a class="signin-link" href="/signup?{{ request.META.QUERY_STRING }}">Register </a>
-                </div>
             </div>
-        </form>
-      </div>
+        </section><!-- End Contact Us Section -->
+        <main>
 
-      </div>
 {% endblock %}
