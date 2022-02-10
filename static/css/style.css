@@ -1,13 +1,3 @@
-/**
-* Template Name: ComingSoon - v4.6.0
-* Template URL: https://bootstrapmade.com/comingsoon-free-html-bootstrap-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
   color: #fff;
@@ -43,7 +33,7 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Kaushan Script', cursive;
 }
 
 #main {
@@ -478,3 +468,62 @@ section {
 #footer .credits a {
   color: #ff3333;
 }
+
+
+/*--------------------------------------------------------------
+Star Rating
+---------------------------------------------------------------*/
+
+label {
+    cursor: pointer;
+    font-size: 40px;
+    color: yellow;
+    display: block;
+    width: 50px;
+    height: 50px;
+    line-height: 60px;
+    text-align: center;
+    float: left;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    text-shadow: 0 3px 3px #2b3c4e;
+}
+
+label:hover {
+    font-size: 50px;
+    color: #fff;
+    text-shadow: 0 0 5px #b9c9d8;
+}
+
+label:before {
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: baseline;
+    margin-top: 0;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+    content: '';
+}
+
+input:checked + label ~ label:before {
+    content: "⭐";
+}
+
+#wrapper {
+    display: inline-block;
+}
+
+#wrapper:hover label:before {
+    content: "⭐";
+}
+
+#wrapper:hover label:hover ~ label:before {
+    content: "⭐";
+}
+/*https://codepen.io/renaudtertrais/pen/AwjvLM*/

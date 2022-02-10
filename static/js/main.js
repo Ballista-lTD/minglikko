@@ -76,8 +76,3 @@
     setInterval(countDownDate, 1000);
 
 })()
-
-// Rating Initialization
-$(document).ready(function () {
-    $('#rateMe2').mdbRate();
-});

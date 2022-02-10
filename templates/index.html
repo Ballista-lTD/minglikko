@@ -6,47 +6,8 @@
     <header id="header" class="d-flex align-items-center">
         <div class="container d-flex flex-column align-items-center">
 
-            <h1>ComingSoon</h1>
-            <h2>We're working hard to improve our website and we'll ready to launch after</h2>
-            <div class="countdown d-flex justify-content-center" data-count="2023/12/5">
-                <div>
-                    <h3>%d</h3>
-                    <h4>Days</h4>
-                </div>
-                <div>
-                    <h3>%h</h3>
-                    <h4>Hours</h4>
-                </div>
-                <div>
-                    <h3>%m</h3>
-                    <h4>Minutes</h4>
-                </div>
-                <div>
-                    <h3>%s</h3>
-                    <h4>Seconds</h4>
-                </div>
-            </div>
-
-            <div class="subscribe">
-                <h4>Subscribe now to get the latest updates!</h4>
-                <form action="forms/notify.php" method="post" role="form" class="php-email-form">
-                    <div class="subscribe-form">
-                        <input type="email" name="email"><input type="submit" value="Subscribe">
-                    </div>
-                    <div class="mt-2">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your notification request was sent. Thank you!</div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="social-links text-center">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
+            <h1>Varshakkoru Vanaran</h1>
+            <h2>We're working hard to get a vanaran for Varsha</h2>
 
         </div>
     </header><!-- End #header -->
@@ -73,13 +34,16 @@
                             culpa qui officia deserunt mollit anim id est laborum
                         </p>
                         <ul>
-                            <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
-                            <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit
-                            </li>
-                            <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                Duis
-                                aute irure dolor in reprehenderit in
-                            </li>
+                            {% for rule in rules %}
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-arrow-through-heart-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l3.103-3.104a.5.5 0 1 1 .708.708L4.5 12.207V14a.5.5 0 0 1-.146.354l-1.5 1.5ZM16 3.5a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182A23.825 23.825 0 0 1 5.8 12.323L8.31 9.81a1.5 1.5 0 0 0-2.122-2.122L3.657 10.22a8.827 8.827 0 0 1-1.039-1.57c-.798-1.576-.775-2.997-.213-4.093C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3Z"></path>
+                                    </svg>
+                                 {{ rule }}
+                                </li>
+                            {% endfor %}
                         </ul>
                         <p class="fst-italic">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -98,8 +62,12 @@
 
                 <div class="section-title">
                     <h2>Contact Us</h2>
+                    <div class="slidecontainer">
+                        <input type="range" min="0" max="5" value="0" class="slider" id="myRange">
+                        <p>Value: <span id="demo"></span></p>
+                    </div>
                     <div class="container">
-                        <span id="rateMe4" class="feedback"></span>
+                        <span id="rateMe4" class="feedback">sss</span>
                     </div>
 
                 </div>
@@ -115,9 +83,7 @@
                             <div class="row">
 
                                 <div class="col-md-6 form-group">
-                                    <input type="text" name="name" class="form-control" id="name"
-                                           placeholder="Your Name"
-                                           required>
+
                                 </div>
                                 <div class="col-md-6 form-group mt-3 mt-md-0">
                                     <input type="email" class="form-control" name="email" id="email"
@@ -154,16 +120,16 @@
     <!-- ======= Footer ======= -->
     <footer id="footer">
         <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>ComingSoon</span></strong>. All Rights Reserved
+            <div class="copyright my-2">
+                &copy; Copyright <strong><span>Trebuchet</span></strong>. All Rights Reserved
             </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/comingsoon-free-html-bootstrap-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            <div class="social-links text-center">
+                <a href="#" class="twitter"><i class="bi bi-twitter mx-2"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook mx-2 "></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram mx-2"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin mx-2"></i></a>
             </div>
+
         </div>
     </footer><!-- End #footer -->
 
