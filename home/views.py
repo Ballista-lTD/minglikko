@@ -10,15 +10,28 @@ questions = ['Ningalk ethra budhi ind', 'ningalk ichiri kannil chora indo ', 'ni
 def index(request):
     if request.method == 'POST':
         tkn = request.user.tokens
-        tkn.intelligence = request.POST['intelligence']
-        tkn.strength = request.POST['strength']
-        tkn.beauty = request.POST['beauty']
-        tkn.charisma = request.POST['charisma']
-        tkn.wealth = request.POST['wealth']
-        tkn.will_help_poor = request.POST['will_help_poor']
-        tkn.religiousity = request.POST['religiousity']
-        tkn.liberal = request.POST['liberal']
-        tkn.save()
+        intelligence = request.POST['intelligence']
+        strength = request.POST['strength']
+        beauty = request.POST['beauty']
+        charisma = request.POST['charisma']
+        wealth = request.POST['wealth']
+        will_help_poor = request.POST['will_help_poor']
+        religiousity = request.POST['religiousity']
+        liberal = request.POST['liberal']
+        total = sum([intelligence, strength, beauty, charisma, wealth, will_help_poor, religiousity, liberal])
+        if total > 20:
+            tkn.intelligence = intelligence
+            tkn.strength = strength
+            tkn.beauty = beauty
+            tkn.charisma = charisma
+            tkn.wealth = wealth
+            tkn.will_help_poor = will_help_poor
+            tkn.religiousity = religiousity
+            tkn.liberal = liberal
+            tkn.save()
+        context1 = {'rules': rules, 'questions': questions, 'submitted': request.user.tokens.total,
+                    'error': "Total must be less than 20"}
+        return render(request, template_name='index.html', context=context1)
     else:
         context1 = {'rules': rules, 'questions': questions, 'submitted': request.user.tokens.total}
         return render(request, template_name='index.html', context=context1)

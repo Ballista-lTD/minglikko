@@ -50,7 +50,11 @@
 
                 <div class="section-title">
                     <h2>fill to mingle</h2>
-
+                    {% if error %}
+                        <div class="col-12 form-group mt-3 mt-md-0 text-danger">
+                            {{ error }}
+                        </div>
+                    {% endif %}
 
                 </div>
 
@@ -63,7 +67,6 @@
                     <div class="col-lg-10 pt-2 ">
                         <div class="php-email-form">
                             <div class="row">
-
                                 {% for ques in questions %}
                                     <div class="col-md-6 form-group mt-3 mt-md-0">
                                         {{ ques }}
@@ -88,19 +91,15 @@
                                                 <label for="star1{{ forloop.counter }}" title="text">1 star</label>
                                             </div>
                                         </div>
-
                                     </div>
                                 {% endfor %}
                             </div>
 
                             <div class="form-group mt-3">
                             <textarea class="form-control" name="message" rows="5" placeholder="Message"
-                                      required></textarea>
-                            </div>
-                            <div class="my-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
+                                      required>
+
+                            </textarea>
                             </div>
                             <div class="text-center">
                                 <button type="submit">Send</button>
