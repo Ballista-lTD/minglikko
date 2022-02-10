@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 rules = ["maryadak ullathu ullath pole parayanam", "maryadak ullathu ullath pole parayanam", 'kooooooooooooooi']
 
-questions = ['ningal aranu', 'ningalk enth venam', 'irangi podo']
+questions = ['Ningalk ethra budhi ind', 'ningalk ichiri kannil chora indo ', 'ningal ethra dayalu anh']
 
 
 @login_required(login_url='/')

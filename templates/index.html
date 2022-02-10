@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+<body>
 {% block body %}
     <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
@@ -28,16 +29,16 @@
                             HACKS TO GET MINGLED
                         </h3>
                         <ul>
-{#                            {% for rule in rules %}#}
-{#                                <li>#}
-{#                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"#}
-{#                                         class="bi bi-arrow-through-heart-fill" viewBox="0 0 16 16">#}
-{#                                        <path fill-rule="evenodd"#}
-{#                                              d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l3.103-3.104a.5.5 0 1 1 .708.708L4.5 12.207V14a.5.5 0 0 1-.146.354l-1.5 1.5ZM16 3.5a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182A23.825 23.825 0 0 1 5.8 12.323L8.31 9.81a1.5 1.5 0 0 0-2.122-2.122L3.657 10.22a8.827 8.827 0 0 1-1.039-1.57c-.798-1.576-.775-2.997-.213-4.093C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3Z"></path>#}
-{#                                    </svg>#}
-{#                                    {{ rule }}#}
-{#                                </li>#}
-{#                            {% endfor %}#}
+                            {% for rule in rules %}
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-arrow-through-heart-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l3.103-3.104a.5.5 0 1 1 .708.708L4.5 12.207V14a.5.5 0 0 1-.146.354l-1.5 1.5ZM16 3.5a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182A23.825 23.825 0 0 1 5.8 12.323L8.31 9.81a1.5 1.5 0 0 0-2.122-2.122L3.657 10.22a8.827 8.827 0 0 1-1.039-1.57c-.798-1.576-.775-2.997-.213-4.093C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3Z"></path>
+                                    </svg>
+                                    {{ rule }}
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -60,28 +61,30 @@
 
                 <div class="row justify-content-center pt-2">
                     <div class="col-lg-10 pt-2 ">
+                        <div class="php-email-form">
                             <div class="row">
 
-                                <div>
-
-                                </div>
                                 {% for ques in questions %}
                                     <div class="col-md-6 form-group mt-3 mt-md-0">
-
                                         {{ ques }}
                                     </div>
                                     <div class="col-md-6 form-group mt-3 mt-md-0">
                                         <div>
                                             <div class="rate">
-                                                <input type="radio" id="star5{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="5"/>
+                                                <input type="radio" id="star5{{ forloop.counter }}"
+                                                       name="rate{{ forloop.counter }}" value="5"/>
                                                 <label for="star5{{ forloop.counter }}" title="text">5 stars</label>
-                                                <input type="radio" id="star4{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="4"/>
+                                                <input type="radio" id="star4{{ forloop.counter }}"
+                                                       name="rate{{ forloop.counter }}" value="4"/>
                                                 <label for="star4{{ forloop.counter }}" title="text">4 stars</label>
-                                                <input type="radio" id="star3{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="3"/>
+                                                <input type="radio" id="star3{{ forloop.counter }}"
+                                                       name="rate{{ forloop.counter }}" value="3"/>
                                                 <label for="star3{{ forloop.counter }}" title="text">3 stars</label>
-                                                <input type="radio" id="star2{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="2"/>
+                                                <input type="radio" id="star2{{ forloop.counter }}"
+                                                       name="rate{{ forloop.counter }}" value="2"/>
                                                 <label for="star2{{ forloop.counter }}" title="text">2 stars</label>
-                                                <input type="radio" id="star1{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="1"/>
+                                                <input type="radio" id="star1{{ forloop.counter }}"
+                                                       name="rate{{ forloop.counter }}" value="1"/>
                                                 <label for="star1{{ forloop.counter }}" title="text">1 star</label>
                                             </div>
                                         </div>
@@ -94,9 +97,15 @@
                             <textarea class="form-control" name="message" rows="5" placeholder="Message"
                                       required></textarea>
                             </div>
-                            <div class="text-center">
-                                <button type="submit">Send Message</button>
+                            <div class="my-3">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Your message has been sent. Thank you!</div>
                             </div>
+                            <div class="text-center">
+                                <button type="submit">Send</button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -109,7 +118,7 @@
     <!-- ======= Footer ======= -->
     <footer id="footer">
         <div class="container">
-            <div class="copyright my-2">
+            <div class="copyright mt-2">
                 &copy; Copyright <strong><span>Trebuchet</span></strong>. All Rights Reserved
             </div>
             <div class="social-links text-center">
@@ -122,12 +131,9 @@
         </div>
     </footer><!-- End #footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
 {% endblock %}
 
 
-
+</body>
 
 
