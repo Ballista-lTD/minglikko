@@ -2,7 +2,7 @@ import json
 import logging
 from pprint import pprint
 from urllib import parse
-
+from urllib.parse import urlencode
 import django
 import requests
 from django.conf import settings
@@ -77,30 +77,8 @@ def index(request):
 
 @ensure_csrf_cookie
 def signin(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('/home')
-    context1 = {}
-    pprint(request.META['QUERY_STRING'])
-    if request.method == "POST":
-        email = request.POST["email"]
-        password = request.POST["password"]
-        if not email or not password:
-            context1['pswderr'] = "Text fields cannot be empty"
-        try:
-            user = authenticate(request, username=email, password=password)
-            if user is not None:
-                login(request, user)
-                # Redirect to a success page.
-                redirect_location = request.GET.get('next', '/') + '?' + request.META['QUERY_STRING']
-                return HttpResponseRedirect(redirect_location)
-        except User.DoesNotExist:
-            context1['pswderr'] = "user does not exist"
-
-    context1['sign_text'] = 'Sign In'
-    context1['GOOGLE_CLIENT_ID'] = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-    context1['google_redirect_uri'] = settings.DEPLOYMENT_URL + '/google-login'
-
-    return render(request, template_name='login.html', context=context1)
+    return HttpResponseRedirect(
+        f'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=code&state={request.META["QUERY_STRING"]}&redirect_uri={settings.DEPLOYMENT_URL + "/google-login"}&client_id={settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}')
 
 
 @login_required
@@ -155,7 +133,7 @@ def Google_login(request):
     state = request.GET.get('state', '/')
     auth_code = request.GET.get('code')
     redirect_uri = settings.DEPLOYMENT_URL + '/google-login'
-    next_loc = get_item_from_url(state, 'next', '/')
+    next_loc = get_item_from_url(state, 'next', '/home')
     logger.info('next ' + next_loc)
     invite_token = get_item_from_url(next_loc, 'invite')
     client_id = get_client_id(next_loc)

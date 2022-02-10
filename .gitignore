@@ -4,3 +4,4 @@ venv/
 */migrations/*
 logs/*
 .env
+lovers
