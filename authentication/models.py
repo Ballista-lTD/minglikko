@@ -20,6 +20,7 @@ class Tokens(models.Model):
     religiousity = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
     liberal = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
 
+    @property
     def total(self):
         return sum(
             [self.religiousity, self.liberal,
