@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from .models import Tokens
 
+
 # first we define the serializers
 
 
@@ -10,8 +11,9 @@ class GetTokensSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tokens
         fields = [
-            'user', 'phone_number',
-
+            'user', 'intelligence', 'strength',
+            'beauty', 'charisma', 'wealth', 'will_help_poor',
+            'religiousity', 'liberal'
         ]
         extra_kwargs = {
             'user': {'read_only': True},
@@ -30,5 +32,3 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ("name",)
-
-

@@ -2,13 +2,13 @@ from django.contrib.auth.models import User, Group
 from oauth2_provider.contrib.rest_framework import TokenHasScope, OAuth2Authentication
 from rest_framework import viewsets, generics, permissions
 from rest_framework.decorators import action
-
+from rest_framework.response import Response
 
 from .models import Tokens
 from rest_framework_social_oauth2.authentication import SocialAuthentication
 from .authentication import CsrfExemptSessionAuthentication
 from .permissions import IsOwner
-from .serializer import UserSerializer, GroupSerializer,GetTokensSerializer
+from .serializer import UserSerializer, GroupSerializer, GetTokensSerializer
 
 
 class UserApiViewSet(viewsets.ModelViewSet):
@@ -58,3 +58,28 @@ class GroupList(generics.ListAPIView):
     required_scopes = ['groups']
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class TokenApiviewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Tokens.objects.all()
+    serializer_class = GetTokensSerializer
+    http_method_names = ['get', 'patch']
+
+    def get_queryset(self):
+        return Tokens.objects.filter(user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        tkn = request.user.tokens
+        intelligence = request.POST['intelligence']
+        strength = request.POST['strength']
+        beauty = request.POST['beauty']
+        charisma = request.POST['charisma']
+        wealth = request.POST['wealth']
+        will_help_poor = request.POST['will_help_poor']
+        religiousity = request.POST['religiousity']
+        liberal = request.POST['liberal']
+        total = sum([intelligence, strength, beauty, charisma, wealth, will_help_poor, religiousity, liberal])
+        if total > 20:
+            super().update(self, request, *args, **kwargs)
+        return Response({"detail": "total point must be less than 20"})

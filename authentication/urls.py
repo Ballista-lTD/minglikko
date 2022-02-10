@@ -1,11 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import GroupList, UserApiViewSet
+from .views import GroupList, UserApiViewSet, TokenApiviewSet
 
 # Setup the URLs and include login URLs for the browsable API.
 router = DefaultRouter()
 router.register(r'users', UserApiViewSet)
+router.register(r'token', TokenApiviewSet)
 urlpatterns = [
     path(r'', include(router.urls)),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
