@@ -3,21 +3,28 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from .models import Tokens
 
-
 # first we define the serializers
+ques = ['intelligence', 'strength',
+        'beauty', 'charisma', 'wealth', 'will_help_poor',
+        'religiousity', 'liberal']
 
 
 class GetTokensSerializer(serializers.ModelSerializer):
+    total = serializers.SerializerMethodField()
+
     class Meta:
         model = Tokens
         fields = [
             'user', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
-            'religiousity', 'liberal'
+            'religiousity', 'liberal', 'total'
         ]
         extra_kwargs = {
             'user': {'read_only': True},
         }
+
+    def get_total(self, obj):
+        return obj.total
 
 
 class UserSerializer(serializers.ModelSerializer):

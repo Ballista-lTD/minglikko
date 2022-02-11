@@ -16,7 +16,7 @@ class UserApiViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     authentication_classes = [CsrfExemptSessionAuthentication, SocialAuthentication, OAuth2Authentication]
     queryset = User.objects.all()
-    http_method_names = ['get', "patch", "options", 'put','post']
+    http_method_names = ['get', "patch", "options", 'put', 'post']
 
     def get_queryset(self):
         try:
@@ -64,22 +64,30 @@ class TokenApiviewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Tokens.objects.all()
     serializer_class = GetTokensSerializer
-    http_method_names = ['get', 'patch']
+    http_method_names = ['get', 'patch', 'post']
 
     def get_queryset(self):
         return Tokens.objects.filter(user=self.request.user)
 
     def update(self, request, *args, **kwargs):
         tkn = request.user.tokens
-        intelligence = request.POST['intelligence']
-        strength = request.POST['strength']
-        beauty = request.POST['beauty']
-        charisma = request.POST['charisma']
-        wealth = request.POST['wealth']
-        will_help_poor = request.POST['will_help_poor']
-        religiousity = request.POST['religiousity']
-        liberal = request.POST['liberal']
-        total = sum([intelligence, strength, beauty, charisma, wealth, will_help_poor, religiousity, liberal])
-        if total > 20:
-            super().update(self, request, *args, **kwargs)
-        return Response({"detail": "total point must be less than 20"})
+        #TODO flip this
+        if tkn.total == 0:
+            intelligence = request.data['intelligence']
+            strength = request.data['strength']
+            beauty = request.data['beauty']
+            charisma = request.data['charisma']
+            wealth = request.data['wealth']
+            will_help_poor = request.data['will_help_poor']
+            religiousity = request.data['religiousity']
+            liberal = request.data['liberal']
+            total = sum([intelligence, strength, beauty, charisma, wealth, will_help_poor, religiousity, liberal])
+            print(total)
+            if total <= 20:
+                serializer = GetTokensSerializer(tkn, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return Response(serializer.data)
+
+            return Response({"detail": "total point must be less than 20"})
+        return Response({"detail": "thanik orale kitya pore"})
