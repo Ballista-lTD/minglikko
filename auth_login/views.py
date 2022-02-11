@@ -71,8 +71,7 @@ def get_client_ip(request):
 
 
 def index(request):
-    context1 = {}
-    return render(request, template_name='index.html', context=context1)
+    return HttpResponseRedirect("https://minglikko.com/")
 
 
 @ensure_csrf_cookie
