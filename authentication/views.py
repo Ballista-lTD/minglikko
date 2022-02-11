@@ -16,7 +16,7 @@ class UserApiViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     authentication_classes = [CsrfExemptSessionAuthentication, SocialAuthentication, OAuth2Authentication]
     queryset = User.objects.all()
-    http_method_names = ['get', "patch", "options", 'put']
+    http_method_names = ['get', "patch", "options", 'put','post']
 
     def get_queryset(self):
         try:
