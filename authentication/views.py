@@ -34,22 +34,7 @@ class UserApiViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get", "post", 'patch', 'put'], url_path='me')
     def me(self, request, *args, **kwargs):
         print(request.method)
-        if request.method == "PATCH" or request.method == "PUT":
-            print("patch is called")
-            try:
-                print(request.data)
-                token_data = request.data.get("tokens")
-                print(token_data)
-                token = Tokens.objects.get(user=request.user)
-                print(token)
-                serializer = GetTokensSerializer(token, data=token_data)
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
-            except KeyError:
-                pass
-        else:
-            self.queryset = self.queryset.filter(id=request.user.id)
-            return viewsets.ModelViewSet.list(self, request, *args, **kwargs)
+        self.queryset = self.queryset.filter(id=request.user.id)
         return viewsets.ModelViewSet.list(self, request, *args, **kwargs)
 
 
@@ -71,7 +56,6 @@ class TokenApiviewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         tkn = request.user.tokens
-        #TODO flip this
         if tkn.total == 0:
             intelligence = request.data['intelligence']
             strength = request.data['strength']
