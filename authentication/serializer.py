@@ -15,12 +15,13 @@ class GetTokensSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tokens
         fields = [
-            'user', 'intelligence', 'strength',
+            'id', 'user', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
             'religiousity', 'liberal', 'total'
         ]
         extra_kwargs = {
             'user': {'read_only': True},
+            'total': {'read_only': True},
         }
 
     def get_total(self, obj):

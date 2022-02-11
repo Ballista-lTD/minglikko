@@ -49,7 +49,7 @@ class TokenApiviewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Tokens.objects.all()
     serializer_class = GetTokensSerializer
-    http_method_names = ['get', 'patch', 'post']
+    http_method_names = ['get', 'patch']
 
     def get_queryset(self):
         return Tokens.objects.filter(user=self.request.user)

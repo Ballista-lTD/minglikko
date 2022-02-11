@@ -33,7 +33,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 SECRET_KEY = '91&-d8s35m7m3+_m19!%%48=4!lfed-fuwgi#-$=kkrv!_snpo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -106,8 +106,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'lovers',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
@@ -144,21 +148,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
-
 if DEBUG:
-    STATICFILES_DIRS = [
-        BASE_DIR / "static",
-    ]
-else:
-    STATIC_ROOT = "/var/www/html/static/"
-
-if DEBUG:
-    MEDIA_ROOT = BASE_DIR / 'media'
+    MEDIA_ROOT = '/var/www/html/media'
 else:
     MEDIA_ROOT = '/var/www/html/media'
 
+STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = '/media/'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
