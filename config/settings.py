@@ -33,7 +33,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 SECRET_KEY = '91&-d8s35m7m3+_m19!%%48=4!lfed-fuwgi#-$=kkrv!_snpo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,7 +79,7 @@ ROOT_URLCONF = 'config.urls'
 
 # you need to change this if you ar not using localhost and 8080 port
 
-DEPLOYMENT_URL = 'https://ci.trebuchet.one'
+DEPLOYMENT_URL = 'https://api.minglikko.com'
 
 TEMPLATES = [
     {
