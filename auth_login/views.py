@@ -76,7 +76,8 @@ def index(request):
 
 @ensure_csrf_cookie
 def signin(request):
-    rf = urlencode(request.META["QUERY_STRING"])
+    print()
+    rf = urlencode(request.GET['next'])
     return HttpResponseRedirect(
         f'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=code&state={rf}&redirect_uri={settings.DEPLOYMENT_URL + "/google-login"}&client_id={settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}')
 
