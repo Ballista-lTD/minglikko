@@ -77,7 +77,7 @@ def index(request):
 @ensure_csrf_cookie
 def signin(request):
     return HttpResponseRedirect(
-        f'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleap  is.com/auth/userinfo.email&include_granted_scopes=true&response_type=code&state={urlencode(request.META["QUERY_STRING"])}&redirect_uri={settings.DEPLOYMENT_URL + "/google-login"}&client_id={settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}')
+        f'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleap  is.com/auth/userinfo.email&include_granted_scopes=true&response_type=code&state={request.META["QUERY_STRING"]}&redirect_uri={settings.DEPLOYMENT_URL + "/google-login"}&client_id={settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}')
 
 
 @login_required
