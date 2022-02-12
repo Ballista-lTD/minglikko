@@ -2,7 +2,7 @@ import json
 import logging
 from pprint import pprint
 from urllib import parse
-from urllib.parse import urlencode
+from urllib.parse import urlencode,quote
 import django
 import requests
 from django.conf import settings
@@ -77,7 +77,7 @@ def index(request):
 @ensure_csrf_cookie
 def signin(request):
     print()
-    rf = urlencode(request.GET['next'])
+    rf = quote(request.GET['next'].encode('utf-8'),safe='')
     return HttpResponseRedirect(
         f'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=code&state={rf}&redirect_uri={settings.DEPLOYMENT_URL + "/google-login"}&client_id={settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}')
 
