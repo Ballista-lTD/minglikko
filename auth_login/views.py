@@ -94,8 +94,11 @@ def request_google(auth_code, redirect_uri):
             'redirect_uri': redirect_uri,
             'grant_type': 'authorization_code'}
     logger.info('Posting to google')
+    logger.info(data)
+
     r = requests.post('https://oauth2.googleapis.com/token', data=data)
-    print(r.content.decode())
+    logger.info('post completed')
+    logger.info(r.content.decode())
     try:
         logger.info('google auth_login ')
         content = json.loads(r.content.decode())
@@ -108,6 +111,7 @@ def request_google(auth_code, redirect_uri):
 
 
 def convert_google_token(token, client_id):
+    print(token, client_id)
     application = Application.objects.get(client_id=client_id)
     data = {
         'grant_type': 'convert_token',
