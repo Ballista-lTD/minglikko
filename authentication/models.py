@@ -32,7 +32,7 @@ def create_new_id():
 
 
 class Tokens(models.Model):
-    private_token = models.CharField(default=create_new_id, max_length=20)
+    private_token = models.CharField(default=create_new_id, max_length=45)
     user = models.OneToOneField(User, related_name='tokens', on_delete=models.CASCADE)
     intelligence = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)],
                                                help_text='0-> Brain potteto. 5 -> Omniscient')
@@ -48,7 +48,7 @@ class Tokens(models.Model):
     will_help_poor = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
     religiousity = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
     liberal = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
-    priority_list = ArrayField(models.CharField(max_length=10), default=list)
+    priority_list = ArrayField(models.CharField(max_length=45), default=list)
 
     @property
     def total(self):

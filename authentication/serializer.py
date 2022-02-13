@@ -11,14 +11,35 @@ ques = ['intelligence', 'strength',
 
 class GetTokensSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
+    # priority_list = serializers.SerializerMethodField()
 
     class Meta:
         model = Tokens
         fields = [
             'id', 'user', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
+            'religiousity', 'liberal', 'total', 'priority_list'
+        ]
+        extra_kwargs = {
+            'user': {'read_only': True},
+            'total': {'read_only': True},
+        }
+
+    def get_total(self, obj):
+        return obj.total
+
+
+class GetTokensToOthersSerializer(serializers.ModelSerializer):
+    total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Tokens
+        fields = [
+            'private_token', 'intelligence', 'strength',
+            'beauty', 'charisma', 'wealth', 'will_help_poor',
             'religiousity', 'liberal', 'total'
         ]
+
         extra_kwargs = {
             'user': {'read_only': True},
             'total': {'read_only': True},
