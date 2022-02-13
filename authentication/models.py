@@ -6,15 +6,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 set_1 = ["shikkari", 'anonymous', 'Minnal ⚡', 'incredible', "pavam", 'Kayamkulam', 'veeran',
-         'killadi', 'porali', 'gunda', "dashamoolam", "girirajan", 'idivettu', 'crazy', 'chullan', 'sexy']
+         'killadi', 'porali', 'gunda', "dashamoolam", "girirajan", 'idivettu', 'crazy', 'chullan', 'sexy', 'pisukkan']
 
-set_2 = ["Crow", "thegha", 'parava', "Turkey", "kakka", "kakkachi", "kuyil", "giraffe", "babu", "sabu", "ramu",
+set_2 = ['parava', "Turkey", "kakka", "kakkachi", "kuyil", "giraffe", "babu", "sabu", "ramu",
          "dhamu", "shambu", "thathamma", "chakka", "neerali",
-         "ottakam", "Tiger", "Bear", "Chimpanzee", "Lion",
-         "Dolphin", "Elephant", "Paambu", "Kangaroo", "Hippopotamus",
-         "Fox", "Gorilla", "vavval", "Frog", "Deer", "Rat", "Lizard", 'shibu', "poth", "eruma",
+         "ottakam", "Chimpanzee", "Lion",
+         "Elephant", "Paambu", "Kangaroo", "Hippopotamus",
+         "Gorilla", "vavval", "Lizard", 'shibu', "poth", "eruma",
          "pashu", "kili", "vekili", "kuruvi", "thavala", 'poocha', "moonga", "moori", "suni", "mayil", "kozhi", "eli",
-         "ottakappakshi", "puli", 'kaduva', 'dakikini', 'kuttusan', 'luttappi', 'mayavi', 'kuttan']
+         "ottakappakshi", "puli", 'kaduva', 'dakikini', 'kuttusan', 'luttappi', 'mayavi', 'kuttan',
+         ]
 
 
 def id_generator():
@@ -60,3 +61,7 @@ class Tokens(models.Model):
 
     def __str__(self):
         return f"{self.user}"
+
+    def sed_name(self):
+        self.name = create_new_id()
+        self.save()
