@@ -5,16 +5,16 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
-set_1 = ["shikkari", 'anonymous', 'Minnal ⚡', 'thee', 'kokkrachi', "pavam", 'Kayamkulam', 'veeran',
-         'killadi', 'porali', 'gunda', "dashamoolam", "girirajan"]
-set_2 = ["Crow", "Peacock", "Dove", "Pigeon", "Turkey", "kakka", "kakkachi", "kuyil", "giraffe", "babu", "sabu", "ramu",
-         "dhamu", "shambu", "Parrot", "Seagull", "Ostrich", "Penguin", "Owl",
-         "Crab", "Fish", "Octopus", "Shark", "Penguin", "Woodpecker",
-         "Camel", "Owl", "Tiger", "Bear", "Chimpanzee", "Lion",
-         "Crocodile", "Dolphin", "Elephant", "Snake", "Kangaroo", "Hippopotamus",
-         "Fox", "Gorilla", "Bat", "Frog", "Deer", "Rat", "Lizard", 'shibu', "poth", "eruma",
+set_1 = ["shikkari", 'anonymous', 'Minnal ⚡', 'incredible', "pavam", 'Kayamkulam', 'veeran',
+         'killadi', 'porali', 'gunda', "dashamoolam", "girirajan", 'idivettu', 'crazy', 'chullan', 'sexy']
+
+set_2 = ["Crow", "thegha", 'parava', "Turkey", "kakka", "kakkachi", "kuyil", "giraffe", "babu", "sabu", "ramu",
+         "dhamu", "shambu", "thathamma", "chakka", "neerali",
+         "ottakam", "Tiger", "Bear", "Chimpanzee", "Lion",
+         "Dolphin", "Elephant", "Paambu", "Kangaroo", "Hippopotamus",
+         "Fox", "Gorilla", "vavval", "Frog", "Deer", "Rat", "Lizard", 'shibu', "poth", "eruma",
          "pashu", "kili", "vekili", "kuruvi", "thavala", 'poocha', "moonga", "moori", "suni", "mayil", "kozhi", "eli",
-         "ottakappakshi", "puli", 'kaduva']
+         "ottakappakshi", "puli", 'kaduva', 'dakikini', 'kuttusan', 'luttappi', 'mayavi', 'kuttan']
 
 
 def id_generator():
