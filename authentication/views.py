@@ -52,6 +52,8 @@ class TokenApiviewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'patch']
 
     def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Tokens.objects.all()
         return Tokens.objects.filter(user=self.request.user)
 
     def update(self, request, *args, **kwargs):
@@ -74,4 +76,12 @@ class TokenApiviewSet(viewsets.ModelViewSet):
                 return Response(serializer.data)
 
             return Response({"detail": "total point must be less than 20"})
-        return Response({"detail": "thanik orale kitya pore"})
+        elif request.user.tokens.priority_list:
+            tkns = request.POST['priority']
+            if len(tkn) != Tokens.objects.all().count() - 1:
+                return Response({"detail": f"you have to send the {Tokens.objects.all().count() - 1} tokens"})
+            if tkns.__contains__(tkn.private_token):
+                return Response({"detail": "Ninak vere arem kitathond ano ninne thanne edukane"})
+            tkn.priority_list = tkns
+            tkn.save()
+        return Response({"detail": "ningade quata kazhinjirikunu mm pokko"})
