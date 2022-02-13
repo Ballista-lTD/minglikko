@@ -5,13 +5,16 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
-set_1 = ["shikkari",'anonymous', 'Minnal ⚡','thee', 'Pulsar 🚴', 'kokkrachi', "pavam", 'Kayamkulam', 'veeran','killadi','porali','gunda',"dashamoolam","karutha",'velutha',"thadicha","unda","girirajan"]
-set_2 = ["Crow", "Peacock", "Dove", "Pigeon", "Turkey","kakka","kakkachi","kuyil","giraffe","babu","sabu","ramu","dhamu","shambu"
-         "Parrot", "Flamingo", "Seagull", "Ostrich","Penguin","Swan", "Owl",
-         "Woodpecker", "Crab", "Fish", "Seal", "Octopus", "Shark", "Seahorse", "Walrus", "Starfish", "Whale", "Penguin", "Woodpecker", "Camel", "Starfish",
-         "Koala", "Alligator", "Owl", "Tiger", "Bear", "Blue whale", "Chimpanzee", "Raccoon", "Lion",
-          "Crocodile", "Dolphin", "Elephant", "Squirrel", "Snake", "Kangaroo", "Hippopotamus", "Elk",
-         "Fox", "Gorilla", "Bat", "Toad", "Frog", "Deer", "Rat", "Lizard", "Reindeer",'shibu',"poth","eruma","pashu","kili","vekili","kuruvi","thavala",'poocha',"moonga","moori","suni","mayil","kozhi","eli","ottakappakshi",""]
+set_1 = ["shikkari", 'anonymous', 'Minnal ⚡', 'thee', 'kokkrachi', "pavam", 'Kayamkulam', 'veeran',
+         'killadi', 'porali', 'gunda', "dashamoolam", "girirajan"]
+set_2 = ["Crow", "Peacock", "Dove", "Pigeon", "Turkey", "kakka", "kakkachi", "kuyil", "giraffe", "babu", "sabu", "ramu",
+         "dhamu", "shambu", "Parrot", "Seagull", "Ostrich", "Penguin", "Owl",
+         "Crab", "Fish", "Octopus", "Shark", "Penguin", "Woodpecker",
+         "Camel", "Owl", "Tiger", "Bear", "Chimpanzee", "Lion",
+         "Crocodile", "Dolphin", "Elephant", "Snake", "Kangaroo", "Hippopotamus",
+         "Fox", "Gorilla", "Bat", "Frog", "Deer", "Rat", "Lizard", 'shibu', "poth", "eruma",
+         "pashu", "kili", "vekili", "kuruvi", "thavala", 'poocha', "moonga", "moori", "suni", "mayil", "kozhi", "eli",
+         "ottakappakshi", "puli", 'kaduva']
 
 
 def id_generator():
@@ -57,4 +60,3 @@ class Tokens(models.Model):
 
     def __str__(self):
         return f"{self.user}"
-
