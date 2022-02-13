@@ -5,16 +5,13 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
-set_1 = ['anonymous', 'Minnal ⚡', 'Pulsar 🚴', 'perillatha ', "pavam"]
-set_2 = ["Crow", "Peacock", "Dove", "Sparrow", "Goose", "Stork", "Pigeon", "Turkey", "Hawk", "Bald eagle", "Raven",
-         "Parrot", "Flamingo", "Seagull", "Ostrich", "Swallow", "Black bird", "Penguin", "Robin", "Swan", "Owl",
-         "Woodpecker", "Crab", "Fish", "Seal", "Octopus", "Shark", "Seahorse", "Walrus", "Starfish", "Whale", "Penguin",
-         "Jellyfish", "Squid", "Lobster", "Pelican", "Clams", "Seagull", "Dolphin", "Shells", "Cormorant",
-         "Otter", "Pelican", "Woodpecker", "Camel", "Starfish",
-         "Koala", "Alligator", "Owl", "Tiger", "Bear", "Blue whale", "Coyote", "Chimpanzee", "Raccoon", "Lion",
-         "Arctic wolf", "Crocodile", "Dolphin", "Elephant", "Squirrel", "Snake", "Kangaroo", "Hippopotamus", "Elk",
-         "Fox", "Gorilla", "Bat", "Hare", "Toad", "Frog", "Deer", "Rat", "Badger", "Lizard", "Mole", "Hedgehog",
-         "Otter", "Reindeer"]
+set_1 = ["shikkari",'anonymous', 'Minnal ⚡','thee', 'Pulsar 🚴', 'kokkrachi', "pavam", 'Kayamkulam', 'veeran','killadi','porali','gunda',"dashamoolam","karutha",'velutha',"thadicha","unda","girirajan"]
+set_2 = ["Crow", "Peacock", "Dove", "Pigeon", "Turkey","kakka","kakkachi","kuyil","giraffe","babu","sabu","ramu","dhamu","shambu"
+         "Parrot", "Flamingo", "Seagull", "Ostrich","Penguin","Swan", "Owl",
+         "Woodpecker", "Crab", "Fish", "Seal", "Octopus", "Shark", "Seahorse", "Walrus", "Starfish", "Whale", "Penguin", "Woodpecker", "Camel", "Starfish",
+         "Koala", "Alligator", "Owl", "Tiger", "Bear", "Blue whale", "Chimpanzee", "Raccoon", "Lion",
+          "Crocodile", "Dolphin", "Elephant", "Squirrel", "Snake", "Kangaroo", "Hippopotamus", "Elk",
+         "Fox", "Gorilla", "Bat", "Toad", "Frog", "Deer", "Rat", "Lizard", "Reindeer",'shibu',"poth","eruma","pashu","kili","vekili","kuruvi","thavala",'poocha',"moonga","moori","suni","mayil","kozhi","eli","ottakappakshi",""]
 
 
 def id_generator():
@@ -26,13 +23,13 @@ def create_new_id():
     unique_id = id_generator()
     while not_unique:
         unique_id = id_generator()
-        if not Tokens.objects.filter(private_token=unique_id):
+        if not Tokens.objects.filter(name=unique_id):
             not_unique = False
     return str(unique_id)
 
 
 class Tokens(models.Model):
-    private_token = models.CharField(default=create_new_id, max_length=45)
+    name = models.CharField(default='create_new_id', max_length=45)
     user = models.OneToOneField(User, related_name='tokens', on_delete=models.CASCADE)
     intelligence = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)],
                                                help_text='0-> Brain potteto. 5 -> Omniscient')
@@ -60,3 +57,4 @@ class Tokens(models.Model):
 
     def __str__(self):
         return f"{self.user}"
+

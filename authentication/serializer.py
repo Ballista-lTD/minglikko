@@ -35,7 +35,7 @@ class GetTokensToOthersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tokens
         fields = [
-            'private_token', 'intelligence', 'strength',
+            'name', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
             'religiousity', 'liberal', 'total'
         ]

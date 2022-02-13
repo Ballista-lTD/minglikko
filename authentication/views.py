@@ -63,7 +63,7 @@ class TokenApiviewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get", ], url_path='o')
     def o(self, request, *args, **kwargs):
-        patient = [tkn.private_token for tkn in Tokens.objects.only('private_token').filter(~Q(user=request.user))]
+        patient = [tkn.name for tkn in Tokens.objects.only('name').filter(~Q(user=request.user))]
         return Response(patient)
 
     def update(self, request, *args, **kwargs):
@@ -91,7 +91,7 @@ class TokenApiviewSet(viewsets.ModelViewSet):
             if tkns:
                 if len(tkns) != Tokens.objects.all().count() - 1:
                     return Response({"detail": f"you have to send the {Tokens.objects.all().count() - 1} tokens"})
-                if tkns.__contains__(tkn.private_token):
+                if tkns.__contains__(tkn.name):
                     return Response({"detail": "Ninak vere arem kitathond ano ninne thanne edukane"})
                 tkn.priority_list = tkns
                 tkn.save()

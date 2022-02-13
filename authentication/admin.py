@@ -6,7 +6,7 @@ from .models import Tokens
 
 @admin.register(Tokens)
 class TokenAdmin(admin.ModelAdmin):
-    list_display = ['private_token', 'user', 'total']
+    list_display = ['name', 'user', 'total']
 
     @staticmethod
     def total(request):
