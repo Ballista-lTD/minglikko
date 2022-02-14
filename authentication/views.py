@@ -1,3 +1,5 @@
+import random
+
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
 from oauth2_provider.contrib.rest_framework import TokenHasScope, OAuth2Authentication
@@ -58,7 +60,8 @@ class TokenApiviewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get", ], url_path='others')
     def others(self, request, *args, **kwargs):
 
-        tkns = Tokens.objects.filter(total__gt=0).filter(~Q(user=self.request.user))
+        tkns = list(Tokens.objects.filter(total__gt=0).filter(~Q(user=self.request.user)))
+        random.shuffle(tkns)
         serializer = GetTokensToOthersSerializer(tkns, many=True)
         return Response(serializer.data, status=200)
 
