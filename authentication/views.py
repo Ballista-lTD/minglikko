@@ -48,7 +48,7 @@ class GroupList(generics.ListAPIView):
 
 class TokenApiviewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = Tokens.objects.all()
+    queryset = Tokens.objects.filter(total__gt=0)
     serializer_class = GetTokensSerializer
     http_method_names = ['get', 'patch']
 
@@ -57,7 +57,7 @@ class TokenApiviewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get", ], url_path='others')
     def others(self, request, *args, **kwargs):
-        tkns = Tokens.objects.all()
+        tkns = Tokens.objects.filter(total__gt=0).filter(~Q(user=self.request.user))
         serializer = GetTokensToOthersSerializer(tkns, many=True)
         return Response(serializer.data, status=200)
 
@@ -88,15 +88,17 @@ class TokenApiviewSet(viewsets.ModelViewSet):
         try:
             tkns: str[:] = request.data['priority']
             print(tkns)
-            if tkns:
-                if len(tkns) != Tokens.objects.all().count() - 1:
-                    return Response({"detail": f"you have to send the {Tokens.objects.all().count() - 1} tokens"})
+            if tkns and tkn.total:
+                if len(tkns) != Tokens.objects.filter(total__gt=0).count() - 1:
+                    return Response({"detail": f"you have to send the {Tokens.objects.filter(total__gt=0).count() - 1} tokens"})
                 if tkns.__contains__(tkn.name):
                     return Response({"detail": "Ninak vere arem kitathond ano ninne thanne edukane"})
                 tkn.priority_list = tkns
                 tkn.save()
                 serializer = GetTokensSerializer(tkn)
                 return Response({serializer.data}, status=200)
+            else:
+                return Response({"detail": "nehihum "})
         except KeyError:
             print("priority not send")
         except Exception as e:
