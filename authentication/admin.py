@@ -7,9 +7,7 @@ from .models import Tokens
 @admin.register(Tokens)
 class TokenAdmin(admin.ModelAdmin):
     list_display = ['name', 'user', 'total']
-    search_fields = ['name', 'user__username', 'user__firstname']
+    search_fields = ['name', 'user', ]
 
-    @staticmethod
-    def total(request):
-        return request.total
+
 
