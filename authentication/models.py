@@ -33,7 +33,7 @@ def create_new_id():
 
 
 class Tokens(models.Model):
-    name = models.CharField(default='create_new_id', max_length=45)
+    name = models.CharField(default=create_new_id, max_length=45)
     user = models.OneToOneField(User, related_name='tokens', on_delete=models.CASCADE)
     intelligence = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)],
                                                help_text='0-> Brain potteto. 5 -> Omniscient')
