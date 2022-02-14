@@ -57,14 +57,15 @@ class TokenApiviewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get", ], url_path='others')
     def others(self, request, *args, **kwargs):
+
         tkns = Tokens.objects.filter(total__gt=0).filter(~Q(user=self.request.user))
         serializer = GetTokensToOthersSerializer(tkns, many=True)
         return Response(serializer.data, status=200)
 
-    @action(detail=False, methods=["get", ], url_path='o')
-    def o(self, request, *args, **kwargs):
-        patient = [tkn.name for tkn in Tokens.objects.only('name').filter(~Q(user=request.user))]
-        return Response(patient)
+    # @action(detail=False, methods=["get", ], url_path='o')
+    # def o(self, request, *args, **kwargs):
+    #     patient = [tkn.name for tkn in Tokens.objects.only('name').filter(~Q(user=request.user))]
+    #     return Response(patient)
 
     def update(self, request, *args, **kwargs):
         tkn = request.user.tokens
@@ -90,17 +91,18 @@ class TokenApiviewSet(viewsets.ModelViewSet):
             print(tkns)
             if tkns and tkn.total:
                 if len(tkns) != Tokens.objects.filter(total__gt=0).count() - 1:
-                    return Response({"detail": f"you have to send the {Tokens.objects.filter(total__gt=0).count() - 1} tokens"})
+                    return Response(
+                        {"detail": f"you have to send the {Tokens.objects.filter(total__gt=0).count() - 1} tokens"},status=402)
                 if tkns.__contains__(tkn.name):
-                    return Response({"detail": "Ninak vere arem kitathond ano ninne thanne edukane"})
+                    return Response({"detail": "Ninak vere arem kitathond ano ninne thanne edukane"},status=402)
                 tkn.priority_list = tkns
                 tkn.save()
                 serializer = GetTokensSerializer(tkn)
                 return Response({serializer.data}, status=200)
             else:
-                return Response({"detail": "nehihum "})
+                return Response({"detail": "nehihum "}, status=402)
         except KeyError:
             print("priority not send")
         except Exception as e:
             print(f"{e = }")
-        return Response({"detail": "thante avasram kazhinj sed avalle better luck next time"})
+        return Response({"detail": "thante avasram kazhinj sed avalle better luck next time"},status=402)
