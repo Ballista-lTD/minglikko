@@ -16,7 +16,6 @@ html = """
     <style>
         table, td, div, h1, p {
             font-family: Poppins;
-
         }
     </style>
 </head>
@@ -51,7 +50,13 @@ html = """
                                         <a href="http://minglikko.com"
                                            style="color:#F7924A;text-decoration:underline;"> Register here</a>
 
+
                                     </p>
+                                    <a href="https://youtu.be/h6etz3MuAJc"
+                                           style="color:#F7924A;text-decoration:underline;"  style="margin-top: 1rem;">
+                                        How to Apply 
+                                    </a>
+
                                 </td>
                             </tr>
 
@@ -85,9 +90,11 @@ html = """
                                                         width="38" style="height:auto;display:block;border:0;"/></a>
                                             </td>
                                         </tr>
+
                                     </table>
                                 </td>
                             </tr>
+
                         </table>
                     </td>
                 </tr>
@@ -121,7 +128,7 @@ class EmailThread(threading.Thread):
 
 def send_async_mail(subject=sub, content=content_new, recipient_list=None):
     if recipient_list is None:
-        recipient_list = ['sunithvazhenkada@gmail.com']
+        recipient_list = ['sunithvazhenkada@gmail.com', ]
     print(content)
     EmailThread(subject, content, recipient_list).start()
 
@@ -134,8 +141,8 @@ class BulkEmail(threading.Thread):
     def run(self):
         count = 0
         for i in self.objects:
-            print(i[1])
-            thre = EmailThread(i[0], i[1], i[2])
+            # print(i[1])
+            thre = EmailThread(sub, content_new,[i.email])
             thre.start()
             thre.join()
             time.sleep(3)
