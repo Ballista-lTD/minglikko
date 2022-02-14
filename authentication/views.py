@@ -105,7 +105,7 @@ class TokenApiviewSet(viewsets.ModelViewSet):
                 print('ellam ith vare okey')
                 return Response(serializer.data, status=200)
             else:
-                return Response({"detail": ""}, status=402)
+                return Response({"detail": "form fill akkathork optionum illa "}, status=402)
         except KeyError:
             print("priority not send")
         except Exception as e:
