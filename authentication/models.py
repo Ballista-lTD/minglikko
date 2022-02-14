@@ -49,7 +49,7 @@ class Tokens(models.Model):
     will_help_poor = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
     religiousity = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
     liberal = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
-    priority_list = ArrayField(models.CharField(max_length=45), default=list)
+    priority_list = ArrayField(models.CharField(max_length=45, blank=True, null=True), default=list)
     total = models.PositiveIntegerField(default=0)
 
     def set_total(self):

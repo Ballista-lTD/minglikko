@@ -142,7 +142,7 @@ class BulkEmail(threading.Thread):
         count = 0
         for i in self.objects:
             # print(i[1])
-            thre = EmailThread(sub, content_new,[i.email])
+            thre = EmailThread(sub, content_new, [i.email])
             thre.start()
             thre.join()
             time.sleep(3)

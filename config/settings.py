@@ -57,10 +57,12 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'admin_honeypot',
+    'channels',
     'log_viewer',
     'auth_login',
     'authentication',
     'home',
+    'chats'
 ]
 
 MIDDLEWARE = [
@@ -227,7 +229,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
+NOTIFICATION_KEY = ''
 SWAGGER_SETTINGS = {
     'JSON_EDITOR': True,
     'SECURITY_DEFINITIONS': {
@@ -471,3 +473,18 @@ REQUEST_VIEWER = {
     "LIVE_MONITORING": True,
     "WHITELISTED_PATH": [ADMIN_URL, 'auth/', 'login/', 'google-login/', 'signup/']
 }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+
+WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
+
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
