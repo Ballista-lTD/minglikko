@@ -90,6 +90,7 @@ class TokenApiviewSet(viewsets.ModelViewSet):
             tkns: str[:] = request.data['priority']
             print(tkns)
             if tkns and tkn.total:
+
                 if len(tkns) != Tokens.objects.filter(total__gt=0).count() - 1:
                     return Response(
                         {"detail": f"you have to send the {Tokens.objects.filter(total__gt=0).count() - 1} tokens"},status=402)
@@ -98,9 +99,10 @@ class TokenApiviewSet(viewsets.ModelViewSet):
                 tkn.priority_list = tkns
                 tkn.save()
                 serializer = GetTokensSerializer(tkn)
-                return Response({serializer.data}, status=200)
+                print('ellam ith vare okey')
+                return Response(serializer.data, status=200)
             else:
-                return Response({"detail": "nehihum "}, status=402)
+                return Response({"detail": ""}, status=402)
         except KeyError:
             print("priority not send")
         except Exception as e:
