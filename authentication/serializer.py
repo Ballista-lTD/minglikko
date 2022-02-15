@@ -39,6 +39,7 @@ class GetTokensSerializer(serializers.ModelSerializer):
 
 class GetTokensToOthersSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
+    private_token = serializers.SerializerMethodField()
 
     class Meta:
         model = Tokens
@@ -55,6 +56,9 @@ class GetTokensToOthersSerializer(serializers.ModelSerializer):
 
     def get_total(self, obj):
         return obj.total
+
+    def get_private_token(self, obj):
+        return obj.name
 
 
 class UserSerializer(serializers.ModelSerializer):
