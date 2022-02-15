@@ -15,5 +15,5 @@ class TokenAdmin(admin.ModelAdmin):
     #     admin_tkn = Tokens.objects.get(user__email='admin@trebuchet.one')
     #     admin_tkn.chat_friends.add(tkn)tk
     def friend(self, request):
-        return "\n".join([f"{tkn.user.username}:{tkn.total}" for tkn in
+        return "\n".join([f"{tkn.user.username}: o-{tkn.priority_list.index(request.name)}" for tkn in
                           request.chat_friends.all()])
