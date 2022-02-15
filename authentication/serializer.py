@@ -46,7 +46,7 @@ class GetTokensToOthersSerializer(serializers.ModelSerializer):
         fields = [
             'name', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
-            'religiousity', 'liberal', 'total'
+            'religiousity', 'liberal', 'total', 'private_token'
         ]
 
         extra_kwargs = {
