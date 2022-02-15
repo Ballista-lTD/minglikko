@@ -6,10 +6,14 @@ from .models import Tokens
 
 @admin.register(Tokens)
 class TokenAdmin(admin.ModelAdmin):
-    list_display = ['name', 'user', 'total']
+    list_display = ['name', 'user', 'total', 'friend']
     search_fields = ['name', ]
+
     # actions = ['set_chat_friend']
     #
     # def set_chat_friend(self, tkn):
     #     admin_tkn = Tokens.objects.get(user__email='admin@trebuchet.one')
-    #     admin_tkn.chat_friends.add(tkn)
+    #     admin_tkn.chat_friends.add(tkn)tk
+    def friend(self, request):
+        return "\n".join([f"{tkn.user.username}:{tkn.total}" for tkn in
+                          request.chat_friends.all()])
