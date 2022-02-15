@@ -119,7 +119,7 @@ def it():
                             users[next_user]['accepted_from'] = user
                             users[old_user]['accepted'] = 0
                             users[old_user]['accepted_from'] = None
-                            users[new_old_user]['accepted'] =0
+                            users[new_old_user]['accepted'] = 0
                             users[new_old_user]['accepted_from'] = None
                             user_data['prio_list'].pop(0)
                             stop = False
@@ -133,7 +133,7 @@ def clear_chat_friends():
         tkn.save()
 
 
-def perform_algorithm():
+def get_data():
     # give_random_priority()
     clear_chat_friends()
     result = it()
@@ -161,10 +161,23 @@ def perform_algorithm():
     for dt in data:
         print(f"({dt},{data[dt]}),({data[dt], data[data[dt]]}) ")
 
-    print(
-        f"Total not paired = {set(final) - set(lst)} \n invalid pairs = {count_invalid} \n{count_empty =} ")
-    for tkn in data:
-        Tokens.objects.get(name=tkn).set_chat_friends(data[tkn])
+    # print(
+    #     f"Total not paired = {set(final) - set(lst)} \n invalid pairs = {count_invalid} \n{count_empty =} ")
+    return data
+
+
+def perform_algorithm():
+    data_1 = get_data()
+    data_2 = get_data()
+    count = 0
+    for d1 in data_1:
+
+        if data_1[d1] != data_2[d1]:
+            print(f"data_1[{d1}] =  {data_1[d1]},data_2[{d1}] = {data_2[d1]}")
+            count += 1
+    print(f"total number of invalids = {count}")
+    for tkn in data_1:
+        Tokens.objects.get(name=tkn).set_chat_friends(data_1[tkn])
 
 
 perform_algorithm()

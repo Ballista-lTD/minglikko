@@ -51,11 +51,12 @@ class Tokens(models.Model):
     liberal = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
     priority_list = ArrayField(models.CharField(max_length=45, blank=True, null=True), default=list)
     total = models.PositiveIntegerField(default=0)
+    last_seen = models.DateTimeField(blank=True, null=True)
 
     chat_friends = models.ManyToManyField('Tokens')
 
     def set_chat_friends(self, token):
-        print(f"{token} ❤️ {self.name}")
+        # print(f"{token} ❤️ {self.name}")
         chat_friends = Tokens.objects.get(name=token)
         self.chat_friends.clear()
         self.chat_friends.set([chat_friends])

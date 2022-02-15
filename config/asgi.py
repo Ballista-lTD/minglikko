@@ -13,9 +13,9 @@ from chats.middleware import TokenAuthMiddleware
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket":
-        TokenAuthMiddleware(
-            URLRouter(
-                chats.routing.websocket_urlpatterns
-            )
+
+        URLRouter(
+            chats.routing.websocket_urlpatterns
+
         ),
 })

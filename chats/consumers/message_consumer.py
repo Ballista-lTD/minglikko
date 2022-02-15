@@ -122,7 +122,7 @@ class Consumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def set_bundle(self, token, data, device_id):
-        bundle, _ = Bundle.objects.get_or_create(user=User.objects.get(tokens__name=token), deviceId=device_id)
+        bundle, _ = Bundle.objects.get_or_create(user=User.objects.get(user__tokens__name=token), deviceId=device_id)
         bundle.data = data
         bundle.save()
 
@@ -154,8 +154,8 @@ class Consumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_bundle_from_db(self, device_id, username):
-        bundle = Bundle.objects.filter(deviceId=device_id, tokens__name=username).first()
-        return bundle or Bundle.objects.filter(deviceId=device_id, tokens__name=self.username).first()
+        bundle = Bundle.objects.filter(deviceId=device_id, user__tokens__name=username).first()
+        return bundle or Bundle.objects.filter(deviceId=device_id, user__tokens__name=self.username).first()
 
     @database_sync_to_async
     def delete_user_device(self, username):

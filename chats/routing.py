@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from .consumers import call_consumer, message_consumer
 
 websocket_urlpatterns = [
