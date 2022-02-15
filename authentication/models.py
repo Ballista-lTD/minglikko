@@ -52,6 +52,8 @@ class Tokens(models.Model):
     priority_list = ArrayField(models.CharField(max_length=45, blank=True, null=True), default=list)
     total = models.PositiveIntegerField(default=0)
 
+    partner = models.ForeignKey('Tokens', on_delete=models.SET_NULL, blank=True, null=True)
+
     def set_total(self):
         self.total = sum(
             [self.religiousity, self.liberal,

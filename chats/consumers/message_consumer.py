@@ -131,7 +131,7 @@ class Consumer(AsyncWebsocketConsumer):
         device, _ = Devices.objects.get_or_create(username=username)
         logger.info(f"Existing devices, {device.data}")
         if device.data != devs:
-            logger.info(f"New device registered, device id = {set(devs)-set(device.data or [])}")
+            logger.info(f"New device registered, device id = {set(devs) - set(device.data or [])}")
             device.data = devs
             device.save()
 

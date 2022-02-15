@@ -65,10 +65,10 @@ class TokenApiviewSet(viewsets.ModelViewSet):
         serializer = GetTokensToOthersSerializer(tkns, many=True)
         return Response(serializer.data, status=200)
 
-    # @action(detail=False, methods=["get", ], url_path='o')
-    # def o(self, request, *args, **kwargs):
-    #     patient = [tkn.name for tkn in Tokens.objects.only('name').filter(~Q(user=request.user))]
-    #     return Response(patient)
+    @action(detail=False, methods=["get", ], url_path='o')
+    def o(self, request, *args, **kwargs):
+        patient = [tkn.name for tkn in Tokens.objects.only('name').filter(~Q(user=request.user))]
+        return Response(patient)
 
     def update(self, request, *args, **kwargs):
         tkn = request.user.tokens
