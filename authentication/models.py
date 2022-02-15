@@ -57,8 +57,8 @@ class Tokens(models.Model):
     def set_chat_friends(self, token):
         print(f"{token} ❤️ {self.name}")
         chat_friends = Tokens.objects.get(name=token)
-        self.chat_friends.set([chat_friends])
         self.chat_friends.clear()
+        self.chat_friends.set([chat_friends])
         chat_friends.chat_friends.clear()
         chat_friends.chat_friends.set([self])
         chat_friends.save()

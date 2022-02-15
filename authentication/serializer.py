@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
 
 from rest_framework import serializers
+
+from chats.models import Bundle
 from .models import Tokens
 
 # first we define the serializers
@@ -11,14 +13,15 @@ ques = ['intelligence', 'strength',
 
 class GetTokensSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
-    # priority_list = serializers.SerializerMethodField()
+
+    chat_friends = serializers.SerializerMethodField()
 
     class Meta:
         model = Tokens
         fields = [
             'id', 'user', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
-            'religiousity', 'liberal', 'total', 'priority_list'
+            'religiousity', 'liberal', 'total', 'chat_friends'
         ]
         extra_kwargs = {
             'user': {'read_only': True},
@@ -27,6 +30,11 @@ class GetTokensSerializer(serializers.ModelSerializer):
 
     def get_total(self, obj):
         return obj.total
+
+    def get_chat_friends(self, tkn):
+        return [{"name": chat_user.name, 'token': chat_user.name,
+                 'bundle': Bundle.objects.filter(user=chat_user.user).exists()} for chat_user in
+                tkn.chat_friends.all()]
 
 
 class GetTokensToOthersSerializer(serializers.ModelSerializer):
