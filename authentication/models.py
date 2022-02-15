@@ -52,14 +52,16 @@ class Tokens(models.Model):
     priority_list = ArrayField(models.CharField(max_length=45, blank=True, null=True), default=list)
     total = models.PositiveIntegerField(default=0)
 
-    partner = models.ForeignKey('Tokens', on_delete=models.SET_NULL, blank=True, null=True)
+    chat_friends = models.ManyToManyField('Tokens')
 
-    def set_partner(self, token):
+    def set_chat_friends(self, token):
         print(f"{token} ❤️ {self.name}")
-        partner = Tokens.objects.get(name=token)
-        self.partner = partner
-        partner.partner = self
-        partner.save()
+        chat_friends = Tokens.objects.get(name=token)
+        self.chat_friends.set([chat_friends])
+        self.chat_friends.clear()
+        chat_friends.chat_friends.clear()
+        chat_friends.chat_friends.set([self])
+        chat_friends.save()
         self.save()
 
     def set_total(self):

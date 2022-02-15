@@ -94,15 +94,15 @@ def it():
     return users
 
 
-def clear_partners():
+def clear_chat_friends():
     for tkn in Tokens.objects.all():
-        tkn.partner = None
+        tkn.chat_friends.set([])
         tkn.save()
 
 
 def perform_algorithm():
     # give_random_priority()
-    clear_partners()
+    clear_chat_friends()
     result = it()
     data = {}
 
@@ -131,7 +131,7 @@ def perform_algorithm():
     print(
         f"Total not paired = {set(final) - set(lst)} \n invalid pairs = {count_invalid} \n{count_empty =} ")
     for tkn in data:
-        Tokens.objects.get(name=tkn).set_partner(data[tkn])
+        Tokens.objects.get(name=tkn).set_chat_friends(data[tkn])
 
 
 perform_algorithm()
