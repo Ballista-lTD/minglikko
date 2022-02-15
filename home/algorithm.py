@@ -90,6 +90,20 @@ def it():
                         users[old_user]['accepted'] = 0
                         users[old_user]['accepted_from'] = None
                     stop = False
+            else:
+                next_user = user_data['prio_list'][0]
+                old_user = user_data['accepted_from']
+                next_user_prio = user_data['prio_dict'][next_user]
+                old_user_prio = user_data['prio_dict'][old_user]
+                if next_user_prio < old_user_prio:
+                    users[next_user]['accepted_from'] = user
+                    users[user]['accepted_from'] = next_user
+                    users[user]['accepted'] = 1
+                    users[next_user]['accepted'] = 1
+                    users[old_user]['accepted'] = 0
+                    users[old_user]['accepted_from'] = None
+                    user_data['prio_list'].pop(0)
+                    stop = False
 
     return users
 
