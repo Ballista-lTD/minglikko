@@ -54,6 +54,14 @@ class Tokens(models.Model):
 
     partner = models.ForeignKey('Tokens', on_delete=models.SET_NULL, blank=True, null=True)
 
+    def set_partner(self, token):
+        print(f"{token} ❤️ {self.name}")
+        partner = Tokens.objects.get(name=token)
+        self.partner = partner
+        partner.partner = self
+        partner.save()
+        self.save()
+
     def set_total(self):
         self.total = sum(
             [self.religiousity, self.liberal,
