@@ -18,3 +18,6 @@ class TokenAdmin(admin.ModelAdmin):
     def friend(self, request):
         return "\n".join([f"{tkn.user.username}: o-{tkn.priority_list.index(request.name)}" for tkn in
                           request.chat_friends.all()])
+
+    def get_queryset(self, request):
+        return Tokens.objects.all().exclude(total=0)
