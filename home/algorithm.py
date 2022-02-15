@@ -125,13 +125,13 @@ def perform_algorithm():
     for dt in data:
         if data[dt]:
             final_list[dt] = data[dt]
-    with open('result.py', 'a') as res:
-        res.write(f"{data = }\n\n")
     for dt in data:
         print(f"({dt},{data[dt]}),({data[dt], data[data[dt]]}) ")
 
     print(
         f"Total not paired = {set(final) - set(lst)} \n invalid pairs = {count_invalid} \n{count_empty =} ")
+    for tkn in data:
+        Tokens.objects.get(name=tkn).set_partner(data[tkn])
 
 
 perform_algorithm()
