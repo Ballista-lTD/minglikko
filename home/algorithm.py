@@ -44,7 +44,7 @@ def create_list():
             prio[tkn.priority_list[i]] = i
 
         applications[tkn.name] = {"prio_dict": prio, "accepted": False,
-                                  "accepted_from": None, "prio_list": tkn.priority_list, "proposals": []}
+                                  "accepted_from": None, "prio_list": tkn.priority_list}
 
     return applications
 
@@ -64,46 +64,32 @@ def validate_data(users: dict):
 
 def it():
     users = create_list()
-    posts: dict[list] = {}
 
-    for user in users:
-        posts[user] = []
     stop = False
     while not stop:
-
         stop = True
         for user in users:
-
-            sender = users[user]
-            if not sender['accepted_from'] and len(sender['prio_list']):
-                print(len(sender['prio_list']), end='\n\n')
-                users[sender['prio_list'].pop()]['proposals'].append(user)
-                stop = False
-
-        for user in users:
-            receiver = users[user]
-
-            if len(receiver['proposals']):
-                rank, the_name = -1, ""
-
-                for name in receiver['proposals']:
-                    if receiver['prio_dict'][name] > rank:
-                        rank = receiver['prio_dict'][name]
-                        print(the_name)
-                        the_name = name
-
-                receiver['proposals'] = []
-
-                if receiver['accepted_from']:
-                    if receiver['prio_dict'][receiver['accepted_from']] > rank:
-                        break_up = receiver['accepted_from']
-                        receiver['accepted_from'] = the_name
-                        users[break_up]['accepted_from'] = None
-                    else:
-                        pass
+            user_data = users[user]
+            if not user_data['accepted']:
+                next_user = user_data['prio_list'].pop(0)
+                next_user_info = users[next_user]
+                if not next_user_info['accepted_from']:
+                    users[next_user]['accepted_from'] = user
+                    users[next_user]['accepted'] = 1
+                    users[user]['accepted_from'] = next_user
+                    users[user]['accepted'] = 1
                 else:
-                    print(the_name)
-                    receiver['accepted_from'] = the_name
+                    old_user = next_user_info['accepted_from']
+                    old_user_prio = next_user_info['prio_dict'][old_user]
+                    new_user_prio = next_user_info['prio_dict'][user]
+                    if new_user_prio < old_user_prio:
+                        users[next_user]['accepted_from'] = user
+                        users[user]['accepted_from'] = next_user
+                        users[user]['accepted'] = 1
+                        users[next_user]['accepted'] = 1
+                        users[old_user]['accepted'] = 0
+                        users[old_user]['accepted_from'] = None
+                    stop = False
 
     return users
 
@@ -115,7 +101,7 @@ def clear_partners():
 
 
 def perform_algorithm():
-    give_random_priority()
+    # give_random_priority()
     clear_partners()
     result = it()
     data = {}
@@ -132,20 +118,19 @@ def perform_algorithm():
         if data[dt] == '':
             count_empty += 1
         else:
+            if dt != data[data[dt]]:
+                count_invalid += 1
             lst.extend([dt, data[dt]])
     final_list = {}
     for dt in data:
         if data[dt]:
-
             final_list[dt] = data[dt]
 
-    for tkn in final_list:
-        print(tkn)
-        token = Tokens.objects.get(name=tkn)
-        token.set_partner(final_list[tkn])
+    for dt in data:
+        print(f"({dt},{data[dt]}),({data[dt], data[data[dt]]}), ({data[data[dt]]},{data[data[data[dt]]]})")
 
     print(
-        f"Total valids {Tokens.objects.exclude(partner=None).count()}\n invalid pairs = {count_invalid} \n{count_empty =} ")
+        f"Total not paired = {set(final) - set(lst)} \n invalid pairs = {count_invalid} \n{count_empty =} ")
 
 
 perform_algorithm()
