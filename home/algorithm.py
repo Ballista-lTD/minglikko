@@ -96,14 +96,33 @@ def it():
                 next_user_prio = user_data['prio_dict'][next_user]
                 old_user_prio = user_data['prio_dict'][old_user]
                 if next_user_prio < old_user_prio:
-                    users[next_user]['accepted_from'] = user
-                    users[user]['accepted_from'] = next_user
-                    users[user]['accepted'] = 1
-                    users[next_user]['accepted'] = 1
-                    users[old_user]['accepted'] = 0
-                    users[old_user]['accepted_from'] = None
-                    user_data['prio_list'].pop(0)
-                    stop = False
+                    next_user_info = users[next_user]
+
+                    if not next_user_info['accepted_from']:
+                        users[user]['accepted_from'] = next_user
+                        users[next_user]['accepted_from'] = user
+                        users[user]['accepted'] = 1
+                        users[next_user]['accepted'] = 1
+                        users[old_user]['accepted'] = 0
+                        users[old_user]['accepted_from'] = None
+                        user_data['prio_list'].pop(0)
+                        stop = False
+
+                    else:
+                        new_old_user = next_user_info['accepted_from']
+                        new_old_user_prio = next_user_info['prio_dict'][new_old_user]
+                        new_new_user_prio = next_user_info['prio_dict'][user]
+                        if new_new_user_prio < new_old_user_prio:
+                            users[user]['accepted_from'] = next_user
+                            users[user]['accepted'] = 1
+                            users[next_user]['accepted'] = 1
+                            users[next_user]['accepted_from'] = user
+                            users[old_user]['accepted'] = 0
+                            users[old_user]['accepted_from'] = None
+                            users[new_old_user]['accepted'] =0
+                            users[new_old_user]['accepted_from'] = None
+                            user_data['prio_list'].pop(0)
+                            stop = False
 
     return users
 
