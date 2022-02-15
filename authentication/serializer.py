@@ -13,13 +13,14 @@ ques = ['intelligence', 'strength',
 
 class GetTokensSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
+    private_token = serializers.SerializerMethodField()
 
     chat_friends = serializers.SerializerMethodField()
 
     class Meta:
         model = Tokens
         fields = [
-            'id', 'user', 'intelligence', 'strength',
+            'id', 'private_token', 'user', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
             'religiousity', 'liberal', 'total', 'chat_friends'
         ]
@@ -36,17 +37,19 @@ class GetTokensSerializer(serializers.ModelSerializer):
                  'bundle': Bundle.objects.filter(user=chat_user.user).exists()} for chat_user in
                 tkn.chat_friends.all()]
 
+    def get_private_token(self, obj):
+        return obj.name
+
 
 class GetTokensToOthersSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
-    private_token = serializers.SerializerMethodField()
 
     class Meta:
         model = Tokens
         fields = [
             'name', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
-            'religiousity', 'liberal', 'total', 'private_token'
+            'religiousity', 'liberal', 'total',
         ]
 
         extra_kwargs = {
@@ -56,9 +59,6 @@ class GetTokensToOthersSerializer(serializers.ModelSerializer):
 
     def get_total(self, obj):
         return obj.total
-
-    def get_private_token(self, obj):
-        return obj.name
 
 
 class UserSerializer(serializers.ModelSerializer):
