@@ -115,7 +115,7 @@ def clear_partners():
 
 
 def perform_algorithm():
-    # give_random_priority()
+    give_random_priority()
     clear_partners()
     result = it()
     data = {}
