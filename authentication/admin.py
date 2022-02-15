@@ -8,6 +8,7 @@ from .models import Tokens
 class TokenAdmin(admin.ModelAdmin):
     list_display = ['name', 'user', 'total', 'friend']
     search_fields = ['name', ]
+    list_per_page = 600
 
     # actions = ['set_chat_friend']
     #
