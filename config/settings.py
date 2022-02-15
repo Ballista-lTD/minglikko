@@ -33,7 +33,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 SECRET_KEY = '91&-d8s35m7m3+_m19!%%48=4!lfed-fuwgi#-$=kkrv!_snpo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
