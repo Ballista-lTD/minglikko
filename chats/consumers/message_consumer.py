@@ -25,7 +25,7 @@ class Consumer(AsyncWebsocketConsumer):
         super().__init__()
 
     async def connect(self):
-        self.user = self.scope['user']
+
         logger.info('connecting')
         # if self.user.is_authenticated:
         logger.info('accepting')
