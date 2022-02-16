@@ -68,6 +68,7 @@ def it():
     stop = False
     while not stop:
         stop = True
+        print('working')
         for user in users:
             user_data = users[user]
             if not user_data['accepted']:
@@ -169,13 +170,13 @@ def get_data():
 def perform_algorithm():
     data_1 = get_data()
     # data_2 = get_data()
-    count = 0
+    # count = 0
     # for d1 in data_1:
     #
     #     if data_1[d1] != data_2[d1]:
     #         print(f"data_1[{d1}] =  {data_1[d1]},data_2[{d1}] = {data_2[d1]}")
     #         count += 1
-    print(f"total number of invalids = {count}")
+    # print(f"total number of invalids = {count}")
     for tkn in data_1:
         Tokens.objects.get(name=tkn).set_chat_friends(data_1[tkn])
 
