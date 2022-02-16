@@ -122,7 +122,7 @@ class Consumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def set_bundle(self, token, data, device_id):
-        bundle, _ = Bundle.objects.get_or_create(user=User.objects.get(user__tokens__name=token), deviceId=device_id)
+        bundle, _ = Bundle.objects.get_or_create(user=User.objects.get(tokens__name=token), deviceId=device_id)
         bundle.data = data
         bundle.save()
 
