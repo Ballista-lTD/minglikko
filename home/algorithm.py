@@ -136,7 +136,7 @@ def clear_chat_friends():
 
 
 def get_data():
-    # give_random_priority()
+    give_random_priority()
     clear_chat_friends()
     result = it()
     data = {}
