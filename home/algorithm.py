@@ -15,6 +15,7 @@ def give_random_priority():
     for tkn in tkns:
         count += 1
         ls = list(set(final) - set(tkn.priority_list))
+        print(f'changing priority of {tkn.name}')
         ls.remove(tkn.name)
         random.shuffle(ls)
         print(len(ls))
