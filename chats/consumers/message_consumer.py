@@ -7,6 +7,7 @@ from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth.models import AnonymousUser, User
 
+from authentication.models import Tokens
 from config import settings
 from chats.models import Bundle, Devices
 
@@ -57,10 +58,11 @@ class Consumer(AsyncWebsocketConsumer):
     async def devices(self, message):
         self.device_id = message['ownDeviceId']
         await self.create_devices(message['username'], message['devices'])
-
+        name = await self.get_friend_name(self.username)
         logger.debug(f"Letting the world know {self.device_id} has joined the party!")
         for key in websockets:  # TODO Don't do this
-            await websockets[key].send(json.dumps(message))
+            if key[0] in name:
+                await websockets[key].send(json.dumps(message))
 
         websockets[(self.username, self.device_id)] = self
 
@@ -113,6 +115,12 @@ class Consumer(AsyncWebsocketConsumer):
             await handlers[message['type']](message)
         else:
             logger.error(f"Unknown request type {message['type'] = }")
+
+    @database_sync_to_async
+    def get_friend_name(self, uid):
+        user = Tokens.objects.get(name=uid)
+        names = [tkn.name for tkn in user.chat_friends.all()]
+        return names
 
     @database_sync_to_async
     def set_last_seen(self, uid):
