@@ -3,6 +3,7 @@ import time
 
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 
 html = """
 <!DOCTYPE html>
@@ -27,7 +28,7 @@ html = """
                    style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
                 <tr>
                     <td align="center" style="background:#F7924A;">
-                        <img src="https://raw.githubusercontent.com/sunithvs/minglikko/main/static/img/poster.jpeg"
+                        <img src="https://raw.githubusercontent.com/sunithvs/minglikko/main/static/img/final.jpeg"
                              alt="" width="100%"
                              style="height:auto;display:block;"/>
                     </td>
@@ -39,23 +40,19 @@ html = """
                             <tr>
                                 <td style="padding:0 0 36px 0;color:#153643;">
                                     <h1 style="color:#F7924A;font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">
-                                        Welcome to Minglikko.com</h1>
+                                        Congrats 🎉🎉, you've found your perfect match !</h1>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                        Dear Human Being<br/></p>
+                                        Dear Human Being<br/>
+                                    Thanks for your lively participation. Hope you enjoyed the game. We'll be back with even more exciting events soon ;)
+                                    </p>
                                     <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                        Thank you for registering at minglikko.com. Phase two of your matchmaking
-                                        process is open now where you can decide the preference order. After option
-                                        registration, our algorithm will get you a perfect match with whom you could
-                                        chat today. Wishing you an amazing valentines day.<br/>
+
+                                        <br/>
                                         <a href="http://minglikko.com"
-                                           style="color:#F7924A;text-decoration:underline;"> Register here</a>
+                                           style="color:#F7924A;text-decoration:underline;"> Chat here</a>
 
 
                                     </p>
-                                    <a href="https://youtu.be/h6etz3MuAJc"
-                                           style="color:#F7924A;text-decoration:underline;"  style="margin-top: 1rem;">
-                                        How to Apply 
-                                    </a>
 
                                 </td>
                             </tr>
@@ -105,12 +102,9 @@ html = """
 </body>
 </html>
 """
-content_new = """ Dear Human Being
-Thank you for registering at minglikko.com. Phase two of your matchmaking process is open now where you can decide the preference order. After option registration, our algorithm will get you a perfect match with whom you could chat today. Wishing you an amazing valentines day.
-Regards
-Team Minglikko."""
+content_new = """ Thanks for your lively participation. Hope you enjoyed the game. We'll be back with even more exciting events soon ;)"""
 
-sub = "Minglikko Option  Registration"
+sub = "Minglikko Partner waiting for your message"
 
 
 class EmailThread(threading.Thread):
@@ -129,7 +123,7 @@ class EmailThread(threading.Thread):
 def send_async_mail(subject=sub, content=content_new, recipient_list=None):
     if recipient_list is None:
         recipient_list = ['sunithvazhenkada@gmail.com', ]
-    print(content)
+    # print(content)
     EmailThread(subject, content, recipient_list).start()
 
 
@@ -153,6 +147,10 @@ class BulkEmail(threading.Thread):
             print(f'Mail to all')
 
 
-def send_bulk_async_mail(objects):
-    print(len(objects))
-    BulkEmail(objects).start()
+def send_bulk_async_mail():
+    users = User.objects.exclude(tokens__chat_friends=None)
+    # print(len(users))
+    BulkEmail(users).start()
+
+
+send_bulk_async_mail()

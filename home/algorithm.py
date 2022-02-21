@@ -180,6 +180,6 @@ def perform_algorithm():
     # print(f"total number of invalids = {count}")
     for tkn in data_1:
         Tokens.objects.get(name=tkn).set_chat_friends(data_1[tkn])
-
-
-perform_algorithm()
+#
+#
+# perform_algorithm()
