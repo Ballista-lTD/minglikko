@@ -171,6 +171,7 @@ def get_data():
         data['will_help_poor'].append(tkns.filter(will_help_poor=i).count())
         data['religiousity'].append(tkns.filter(religiousity=i).count())
         data['liberal'].append(tkns.filter(liberal=i).count())
+    print(data)
     with open('data.py', 'w') as f:
         f.write(f"{data = }")
 
