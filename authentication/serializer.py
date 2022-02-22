@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
 
 from rest_framework import serializers
+
+from chats.models import Bundle
 from .models import Tokens
 
 # first we define the serializers
@@ -11,14 +13,45 @@ ques = ['intelligence', 'strength',
 
 class GetTokensSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
+    private_token = serializers.SerializerMethodField()
+
+    chat_friends = serializers.SerializerMethodField()
 
     class Meta:
         model = Tokens
         fields = [
-            'id', 'user', 'intelligence', 'strength',
+            'id', 'private_token', 'user', 'intelligence', 'strength',
             'beauty', 'charisma', 'wealth', 'will_help_poor',
-            'religiousity', 'liberal', 'total'
+            'religiousity', 'liberal', 'total', 'chat_friends'
         ]
+        extra_kwargs = {
+            'user': {'read_only': True},
+            'total': {'read_only': True},
+        }
+
+    def get_total(self, obj):
+        return obj.total
+
+    def get_chat_friends(self, tkn):
+        return [{"name": chat_user.name, 'token': chat_user.name,
+                 'bundle': Bundle.objects.filter(user=chat_user.user).exists()} for chat_user in
+                tkn.chat_friends.all()]
+
+    def get_private_token(self, obj):
+        return obj.name
+
+
+class GetTokensToOthersSerializer(serializers.ModelSerializer):
+    total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Tokens
+        fields = [
+            'name', 'intelligence', 'strength',
+            'beauty', 'charisma', 'wealth', 'will_help_poor',
+            'religiousity', 'liberal', 'total',
+        ]
+
         extra_kwargs = {
             'user': {'read_only': True},
             'total': {'read_only': True},

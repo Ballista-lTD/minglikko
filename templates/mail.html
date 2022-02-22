@@ -1,11 +1,3 @@
-import threading
-import time
-
-from django.conf import settings
-from django.core.mail import send_mail
-from django.contrib.auth.models import User
-
-html = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,56 +93,3 @@ html = """
 </table>
 </body>
 </html>
-"""
-content_new = """ Thanks for your lively participation. Hope you enjoyed the game. We'll be back with even more exciting events soon ;)"""
-
-sub = "Minglikko Partner waiting for your message"
-
-
-class EmailThread(threading.Thread):
-    def __init__(self, subject, content, recipient_list):
-        self.subject = subject
-        self.recipient_list = recipient_list
-        self.content = content
-        threading.Thread.__init__(self)
-
-    def run(self):
-        send_mail(self.subject, content_new, settings.EMAIL_HOST_USER, self.recipient_list, html_message=html,
-                  fail_silently=False, )
-        print(f'Mail [{self.subject}] sent to {self.recipient_list}')
-
-
-def send_async_mail(subject=sub, content=content_new, recipient_list=None):
-    if recipient_list is None:
-        recipient_list = ['sunithvazhenkada@gmail.com', ]
-    # print(content)
-    EmailThread(subject, content, recipient_list).start()
-
-
-class BulkEmail(threading.Thread):
-    def __init__(self, objects):
-        self.objects = objects
-        threading.Thread.__init__(self)
-
-    def run(self):
-        count = 0
-        for i in self.objects:
-            # print(i[1])
-            thre = EmailThread(sub, content_new, [i.email])
-            thre.start()
-            thre.join()
-            time.sleep(3)
-            if count > 50:
-                time.sleep(200)
-                count = 0
-            count += 1
-            print(f'Mail to all')
-
-
-def send_bulk_async_mail():
-    users = User.objects.exclude(tokens__chat_friends=None)
-    # print(len(users))
-    BulkEmail(users).start()
-
-
-send_bulk_async_mail()
