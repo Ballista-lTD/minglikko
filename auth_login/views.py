@@ -95,18 +95,23 @@ def request_google(auth_code, redirect_uri):
             'grant_type': 'authorization_code'}
     logger.info('Posting to google')
     logger.info(data)
-
-    r = requests.post('https://oauth2.googleapis.com/token', data=data)
-    logger.info('post completed')
-    logger.info(r.content.decode())
     try:
-        logger.info('google auth_login ')
-        content = json.loads(r.content.decode())
-        token = content["access_token"]
-        return token
+        r = requests.post('https://oauth2.googleapis.com/token', data=data)
+        logger.info(r.content.decode())
+
+        logger.info('post completed')
+        logger.info(r.content.decode())
+        try:
+            logger.info('google auth_login ')
+            content = json.loads(r.content.decode())
+            token = content["access_token"]
+            return token
+        except Exception as e:
+            logger.exception('google auth_login fail')
+            logger.debug(r.content.decode())
+            return False
     except Exception as e:
-        logger.exception('google auth_login fail')
-        logger.debug(r.content.decode())
+        logger.exception(e)
         return False
 
 
