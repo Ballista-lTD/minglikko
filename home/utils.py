@@ -162,7 +162,7 @@ def get_data():
     data = {'intelligence': [], 'strength': [], 'beauty': [], 'charisma': [], 'wealth': [], 'will_help_poor': [],
             'religiousity': [], 'liberal': []}
 
-    for i in range(5):
+    for i in range(6):
         data['intelligence'].append(tkns.filter(intelligence=i).count())
         data['strength'].append(tkns.filter(strength=i).count())
         data['beauty'].append(tkns.filter(beauty=i).count())
