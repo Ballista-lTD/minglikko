@@ -159,18 +159,18 @@ from authentication.models import Tokens
 
 def get_data():
     tkns = Tokens.objects.exclude(total=0)
-    data = {'intelligence': [], 'strength': [], 'beauty': [], 'charisma': [], 'wealth': [], 'will_help_poor': [],
-            'religiousity': [], 'liberal': []}
+    data = {'intelligence': {}, 'strength': {}, 'beauty': {}, 'charisma': {}, 'wealth': {}, 'will_help_poor': {},
+            'religiousity': {}, 'liberal': {}}
 
     for i in range(6):
-        data['intelligence'].append(tkns.filter(intelligence=i).count())
-        data['strength'].append(tkns.filter(strength=i).count())
-        data['beauty'].append(tkns.filter(beauty=i).count())
-        data['charisma'].append(tkns.filter(charisma=i).count())
-        data['wealth'].append(tkns.filter(wealth=i).count())
-        data['will_help_poor'].append(tkns.filter(will_help_poor=i).count())
-        data['religiousity'].append(tkns.filter(religiousity=i).count())
-        data['liberal'].append(tkns.filter(liberal=i).count())
+        data['intelligence'][f"{i}"] = tkns.filter(intelligence=i).count()
+        data['strength'][f"{i}"] = tkns.filter(strength=i).count()
+        data['beauty'][f"{i}"] = tkns.filter(beauty=i).count()
+        data['charisma'][f"{i}"] = tkns.filter(charisma=i).count()
+        data['wealth'][f"{i}"] = tkns.filter(wealth=i).count()
+        data['will_help_poor'][f"{i}"] = tkns.filter(will_help_poor=i).count()
+        data['religiousity'][f"{i}"] = tkns.filter(religiousity=i).count()
+        data['liberal'][f"{i}"] = tkns.filter(liberal=i).count()
     print(data)
     with open('data.py', 'w') as f:
         f.write(f"{data = }")
