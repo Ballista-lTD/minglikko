@@ -67,6 +67,26 @@ def check_stability(pair, users, data):
         count += 1
 
 
+def on3(users):
+    user_names = set(users.keys())
+
+    for user in user_names:
+
+        if user not in users:
+            continue
+
+        a, b = get_match(user, users, [])
+
+        if not a or not b:
+            print("Lonely ", user)
+            continue
+
+        pairs.append((a, b))
+
+        del users[a]
+        del users[b]
+
+
 def main():
     users = json.load(open("./data_dict.json"))
     user_names = set(users.keys())
@@ -86,12 +106,14 @@ def main():
 
         del users[a]
         del users[b]
+    print(f"{pairs = }")
     users = json.load(open("./data_dict.json"))
 
     data = {}
     for pair in pairs:
         data[pair[0]] = (pair[1], users[pair[0]]['prio_list'].index(pair[1]))
         data[pair[1]] = (pair[0], users[pair[1]]['prio_list'].index(pair[0]))
+
     for pair in pairs:
         check_stability(pair, users, data)
 
